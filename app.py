@@ -61,8 +61,8 @@ class Job(db.Model):
 class JobSchema(ma.Schema):
     class Meta:
         fields = ('id', 'type', 'url', 'created_at', 'company',
-        'company_url', 'location', 'title', 'description',
-        'how_to_apply', 'company_logo')
+                'company_url', 'location', 'title', 'description',
+                'how_to_apply', 'company_logo')
 
 
 # Init schema
@@ -82,9 +82,9 @@ def add_job():
     description = request.form['description']
     how_to_apply = request.form['how_to_apply']
     company_logo = request.form['company_logo']
-   
+
     new_job = Job(type, url, company, company_url, location,
-    title, description, how_to_apply, company_logo)
+                title, description, how_to_apply, company_logo)
 
     try:
         db.session.add(new_job)
@@ -123,7 +123,7 @@ def update_job(id):
     description = request.json['description']
     how_to_apply = request.json['how_to_apply']
     company_logo = request.json['company_logo']
-    
+
     job.type = type
     job.url = url
     job.company = company
@@ -153,10 +153,10 @@ def delete_job(id):
         return 'There was an error'
 
 
-
 @app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
+
 
 @app.route('/add', methods=['GET'])
 def add():
