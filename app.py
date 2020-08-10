@@ -99,7 +99,7 @@ def add_job():
 def get_jobs():
     all_jobs = Job.query.all()
     result = jobs_schema.dump(all_jobs)
-    return jsonify(result.data)
+    return jsonify(result)
 
 # Get Single Job
 @app.route('/job/<id>', methods=['GET'])
@@ -156,6 +156,10 @@ def delete_job(id):
 @app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
+
+@app.route('/add', methods=['GET'])
+def add():
+    return render_template('add.html')
 
 
 # Run Server
