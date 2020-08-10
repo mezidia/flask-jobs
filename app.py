@@ -34,7 +34,6 @@ class Job(db.Model):
     def __init__(self,
                 type,
                 url,
-                created_at,
                 company,
                 company_url,
                 location,
@@ -45,7 +44,6 @@ class Job(db.Model):
     ):
         self.type = type
         self.url = url
-        self.created_at = created_at
         self.company = company
         self.company_url = company_url
         self.location = location
@@ -73,18 +71,17 @@ jobs_schema = JobSchema(many=True)
 # Create a Job
 @app.route('/job', methods=['POST'])
 def add_job():
-    type = request.json['type']
-    url = request.json['url']
-    created_at = request.json['created_at']
-    company = request.json['company']
-    company_url = request.json['company_url']
-    location = request.json['location']
-    title = request.json['title']
-    description = request.json['description']
-    how_to_apply = request.json['how_to_apply']
-    company_logo = request.json['company_logo']
+    type = request.form['type']
+    url = request.form['url']
+    company = request.form['company']
+    company_url = request.form['company_url']
+    location = request.form['location']
+    title = request.form['title']
+    description = request.form['description']
+    how_to_apply = request.form['how_to_apply']
+    company_logo = request.form['company_logo']
     
-    new_job = Job(type, url, created_at, company, company_url, location,
+    new_job = Job(type, url, company, company_url, location,
     title, description, how_to_apply, company_logo)
 
     try:
@@ -114,7 +111,6 @@ def update_job(id):
 
     type = request.json['type']
     url = request.json['url']
-    created_at = request.json['created_at']
     company = request.json['company']
     company_url = request.json['company_url']
     location = request.json['location']
@@ -125,7 +121,6 @@ def update_job(id):
     
     job.type = type
     job.url = url
-    job.created_at = created_at
     job.company = company
     job.company_url = company_url
     job.location = location
