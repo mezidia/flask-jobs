@@ -1,7 +1,7 @@
 from datetime import datetime
 import os
 
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow 
 
@@ -69,6 +69,89 @@ class JobSchema(ma.Schema):
 # Init schema
 job_schema = JobSchema()
 jobs_schema = JobSchema(many=True)
+
+# Create a Job
+@app.route('/job', methods=['POST'])
+def add_job():
+    type = request.json['type']
+    url = request.json['url']
+    created_at = request.json['created_at']
+    company = request.json['company']
+    company_url = request.json['company_url']
+    location = request.json['location']
+    title = request.json['title']
+    description = request.json['description']
+    how_to_apply = request.json['how_to_apply']
+    company_logo = request.json['company_logo']
+    
+    new_job = Job(type, url, created_at, company, company_url, location,
+    title, description, how_to_apply, company_logo)
+
+    try:
+        db.session.add(new_job)
+        db.session.commit()
+        return job_schema.jsonify(new_job)
+    except:
+        return 'There was an error'
+
+# Get All Jobs
+@app.route('/job', methods=['GET'])
+def get_jobs():
+    all_jobs = Job.query.all()
+    result = jobs_schema.dump(all_jobs)
+    return jsonify(result.data)
+
+# Get Single Job
+@app.route('/job/<id>', methods=['GET'])
+def get_job(id):
+    job = Job.query.get(id)
+    return job_schema.jsonify(job)
+
+# Update a Job
+@app.route('/job/<id>', methods=['PUT'])
+def update_job(id):
+    job = Job.query.get(id)
+
+    type = request.json['type']
+    url = request.json['url']
+    created_at = request.json['created_at']
+    company = request.json['company']
+    company_url = request.json['company_url']
+    location = request.json['location']
+    title = request.json['title']
+    description = request.json['description']
+    how_to_apply = request.json['how_to_apply']
+    company_logo = request.json['company_logo']
+    
+    job.type = type
+    job.url = url
+    job.created_at = created_at
+    job.company = company
+    job.company_url = company_url
+    job.location = location
+    job.title = title
+    job.description = description
+    job.how_to_apply = how_to_apply
+    job.company_logo = company_logo
+
+    try:
+        db.session.commit()
+        return job_schema.jsonify(job)
+    except:
+        return 'There was an error'
+
+# Delete Job
+@app.route('/job/<id>', methods=['DELTE'])
+def delete_job(id):
+    job = Job.query.get(id)
+    try:
+        db.session.delete(job)
+        db.session.commit()
+        return job_schema.jsonify(job)
+    except:
+        return 'There was an error'
+
+
 
 @app.route('/', methods=['GET'])
 def index():
