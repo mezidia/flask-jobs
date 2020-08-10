@@ -1,9 +1,9 @@
 from datetime import datetime
 import os
 
-from flask import Flask, render_template, request, jsonify, redirect
+from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from flask_marshmallow import Marshmallow 
+from flask_marshmallow import Marshmallow
 
 # Init app
 app = Flask(__name__)
@@ -31,16 +31,17 @@ class Job(db.Model):
     how_to_apply = db.Column(db.Text())
     company_logo = db.Column(db.Text())
 
-    def __init__(self,
-                type,
-                url,
-                company,
-                company_url,
-                location,
-                title,
-                description,
-                how_to_apply,
-                company_logo
+    def __init__(
+        self,
+        type,
+        url,
+        company,
+        company_url,
+        location,
+        title,
+        description,
+        how_to_apply,
+        company_logo
     ):
         self.type = type
         self.url = url
@@ -51,7 +52,6 @@ class Job(db.Model):
         self.description = description
         self.how_to_apply = how_to_apply
         self.company_logo = company_logo
-
 
     def __repr__(self):
         return f'<Job {self.title}>'
@@ -64,9 +64,11 @@ class JobSchema(ma.Schema):
         'company_url', 'location', 'title', 'description',
         'how_to_apply', 'company_logo')
 
+
 # Init schema
 job_schema = JobSchema()
 jobs_schema = JobSchema(many=True)
+
 
 # Create a Job
 @app.route('/job', methods=['POST'])
@@ -80,7 +82,7 @@ def add_job():
     description = request.form['description']
     how_to_apply = request.form['how_to_apply']
     company_logo = request.form['company_logo']
-    
+   
     new_job = Job(type, url, company, company_url, location,
     title, description, how_to_apply, company_logo)
 
@@ -91,6 +93,7 @@ def add_job():
     except:
         return 'There was an error'
 
+
 # Get All Jobs
 @app.route('/job', methods=['GET'])
 def get_jobs():
@@ -98,11 +101,13 @@ def get_jobs():
     result = jobs_schema.dump(all_jobs)
     return jsonify(result)
 
+
 # Get Single Job
 @app.route('/job/<id>', methods=['GET'])
 def get_job(id):
     job = Job.query.get(id)
     return job_schema.jsonify(job)
+
 
 # Update a Job
 @app.route('/job/<id>', methods=['PUT'])
@@ -134,6 +139,7 @@ def update_job(id):
         return job_schema.jsonify(job)
     except:
         return 'There was an error'
+
 
 # Delete Job
 @app.route('/job/<id>', methods=['DELTE'])
