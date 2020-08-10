@@ -60,9 +60,11 @@ class Job(db.Model):
 # Job Schema
 class JobSchema(ma.Schema):
     class Meta:
-        fields = ('id', 'type', 'url', 'created_at', 'company',
-                'company_url', 'location', 'title', 'description',
-                'how_to_apply', 'company_logo')
+        fields = (
+            'id', 'type', 'url', 'created_at', 'company',
+            'company_url', 'location', 'title', 'description',
+            'how_to_apply', 'company_logo'
+        )
 
 
 # Init schema
@@ -83,8 +85,10 @@ def add_job():
     how_to_apply = request.form['how_to_apply']
     company_logo = request.form['company_logo']
 
-    new_job = Job(type, url, company, company_url, location,
-                title, description, how_to_apply, company_logo)
+    new_job = Job(
+                    type, url, company, company_url, location,
+                    title, description, how_to_apply, company_logo
+                )
 
     try:
         db.session.add(new_job)
