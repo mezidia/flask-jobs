@@ -3,6 +3,7 @@ import os
 
 from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from flask_marshmallow import Marshmallow 
 
 # Init app
 app = Flask(__name__)
@@ -12,6 +13,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'db
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Init db
 db = SQLAlchemy(app)
+# Init ma
+ma = Marshmallow(app)
 
 
 # Job Class/Model
@@ -54,6 +57,18 @@ class Job(db.Model):
 
     def __repr__(self):
         return f'<Job {self.title}>'
+
+
+# Job Schema
+class JobSchema(ma.Schema):
+    class Meta:
+        fields = ('id', 'type', 'url', 'created_at', 'company',
+        'company_url', 'location', 'title', 'description',
+        'how_to_apply', 'company_logo')
+
+# Init schema
+job_schema = JobSchema()
+jobs_schema = JobSchema(many=True)
 
 @app.route('/', methods=['GET'])
 def index():
