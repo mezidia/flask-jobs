@@ -31,27 +31,8 @@ class Job(db.Model):
     how_to_apply = db.Column(db.Text())
     company_logo = db.Column(db.Text())
 
-    def __init__(
-        self,
-        type,
-        url,
-        company,
-        company_url,
-        location,
-        title,
-        description,
-        how_to_apply,
-        company_logo
-    ):
-        self.type = type
-        self.url = url
-        self.company = company
-        self.company_url = company_url
-        self.location = location
-        self.title = title
-        self.description = description
-        self.how_to_apply = how_to_apply
-        self.company_logo = company_logo
+    def __init__(self, *args, **kwargs):
+        super(Job, self).__init__(*args, **kwargs)
 
     def __repr__(self):
         return f'<Job {self.title}>'
@@ -85,10 +66,7 @@ def add_job():
     how_to_apply = request.form['how_to_apply']
     company_logo = request.form['company_logo']
 
-    new_job = Job(
-                    type, url, company, company_url, location,
-                    title, description, how_to_apply, company_logo
-                )
+    new_job = Job(type=type, url=url, company=company, company_url=company_url, location=location,title=title, description=description, how_to_apply=how_to_apply, company_logo=company_logo)
 
     try:
         db.session.add(new_job)
