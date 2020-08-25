@@ -9,7 +9,8 @@ from flask_marshmallow import Marshmallow
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
 # Database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'db.sqlite')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
+    os.path.join(basedir, 'db.sqlite')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Init db
 db = SQLAlchemy(app)
@@ -66,13 +67,22 @@ def add_job():
     how_to_apply = request.form['how_to_apply']
     company_logo = request.form['company_logo']
 
-    new_job = Job(type=type, url=url, company=company, company_url=company_url, location=location,title=title, description=description, how_to_apply=how_to_apply, company_logo=company_logo)
+    new_job = Job(
+        type=type,
+        url=url,
+        company=company,
+        company_url=company_url,
+        location=location,
+        title=title,
+        description=description,
+        how_to_apply=how_to_apply,
+        company_logo=company_logo)
 
     try:
         db.session.add(new_job)
         db.session.commit()
         return job_schema.jsonify(new_job)
-    except:
+    except BaseException:
         return 'There was an error'
 
 
@@ -119,7 +129,7 @@ def update_job(id):
     try:
         db.session.commit()
         return job_schema.jsonify(job)
-    except:
+    except BaseException:
         return 'There was an error'
 
 
@@ -131,7 +141,7 @@ def delete_job(id):
         db.session.delete(job)
         db.session.commit()
         return job_schema.jsonify(job)
-    except:
+    except BaseException:
         return 'There was an error'
 
 
