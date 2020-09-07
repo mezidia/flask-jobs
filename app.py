@@ -134,7 +134,7 @@ def update_job(id):
 
 
 # Delete Job
-@app.route('/job/<id>', methods=['DELTE'])
+@app.route('/job/<id>', methods=['DELETE'])
 def delete_job(id):
     job = Job.query.get(id)
     try:
@@ -145,8 +145,15 @@ def delete_job(id):
         return 'There was an error'
 
 
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['GET', 'POST'])
 def index():
+    if request.method == 'POST':
+        title = request.form['search']
+        try:
+            job = Job.query.filter(Job.title==title).first()
+            return job_schema.jsonify(job)
+        except:
+            return 'Job with this title was not found'
     return render_template('index.html')
 
 
