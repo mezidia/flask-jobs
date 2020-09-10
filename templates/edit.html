@@ -3,46 +3,7 @@
 <div class="container">
     <h1 class="text-center">Add job</h1>
     <form method="POST">
-        <div class="mb-3">
-            <label for="type" class="form-label">Type of job</label>
-            <select id="type" class="form-select" name="type">
-              <option {% if job.type == "Full time" %}selected="selected"{% endif %}>Full time</option>
-              <option {% if job.type == "Not the full time" %}selected="selected"{% endif %}>Not the full time</option>
-            </select>
-        </div>
-        <div class="mb-3">
-          <label for="url" class="form-label">Url</label>
-          <input type="text" class="form-control" id="url" name="url" value="{{job.url}}" required>
-        </div>
-        <div class="mb-3">
-            <label for="company" class="form-label">Company</label>
-            <input type="text" class="form-control" id="company" name="company" value="{{job.company}}" required>
-        </div>
-        <div class="mb-3">
-            <label for="company_url" class="form-label">Company url</label>
-            <input type="text" class="form-control" id="company_url" name="company_url" value="{{job.company_url}}" required>
-        </div>
-        <div class="mb-3">
-            <label for="location" class="form-label">Location</label>
-            <input type="text" class="form-control" id="location" name="location" value="{{job.location}}" required>
-        </div>
-        <div class="mb-3">
-            <label for="title" class="form-label">Title</label>
-            <input type="text" class="form-control" id="title" name="title" value="{{job.title}}" required>
-        </div>
-        <div class="mb-3">
-            <label for="description" class="form-label">Description</label>
-            <input type="text" class="form-control" id="description" name="description" value="{{job.description}}" required>
-        </div>
-        <div class="mb-3">
-            <label for="how_to_apply" class="form-label">How to apply</label>
-            <input type="text" class="form-control" id="how_to_apply" name="how_to_apply" value="{{job.how_to_apply}}" required>
-        </div>
-        <div class="mb-3">
-            <label for="company_logo" class="form-label">Company logo</label>
-            <input type="text" class="form-control" id="company_logo" name="company_logo" value="{{job.company_logo}}" required>
-        </div>
-        <button type="submit" class="btn btn-primary mb-2">Submit</button>
+        {% include 'includes/job_form.html' %}
     </form>
 </div>
 {% endblock %}
