@@ -101,38 +101,6 @@ def get_job(id):
     return job_schema.jsonify(job)
 
 
-# Update a Job
-@app.route('/job/<id>', methods=['PUT'])
-def update_job(id):
-    job = Job.query.get(id)
-
-    type = request.json['type']
-    url = request.json['url']
-    company = request.json['company']
-    company_url = request.json['company_url']
-    location = request.json['location']
-    title = request.json['title']
-    description = request.json['description']
-    how_to_apply = request.json['how_to_apply']
-    company_logo = request.json['company_logo']
-
-    job.type = type
-    job.url = url
-    job.company = company
-    job.company_url = company_url
-    job.location = location
-    job.title = title
-    job.description = description
-    job.how_to_apply = how_to_apply
-    job.company_logo = company_logo
-
-    try:
-        db.session.commit()
-        return job_schema.jsonify(job)
-    except BaseException:
-        return 'There was an error'
-
-
 # Delete Job
 @app.route('/job/<id>', methods=['DELETE'])
 def delete_job(id):
@@ -160,6 +128,44 @@ def index():
 @app.route('/add', methods=['GET'])
 def add():
     return render_template('add.html')
+
+
+# Update a Job
+@app.route('/edit/<int:id>', methods=['GET', 'POST'])
+def edit(id):
+    if request.method == 'POST':
+        job = Job.query.get(id)
+
+        type = request.form['type']
+        url = request.form['url']
+        company = request.form['company']
+        company_url = request.form['company_url']
+        location = request.form['location']
+        title = request.form['title']
+        description = request.form['description']
+        how_to_apply = request.form['how_to_apply']
+        company_logo = request.form['company_logo']
+
+        job.type = type
+        job.url = url
+        job.company = company
+        job.company_url = company_url
+        job.location = location
+        job.title = title
+        job.description = description
+        job.how_to_apply = how_to_apply
+        job.company_logo = company_logo
+
+        try:
+            db.session.commit()
+            return job_schema.jsonify(job)
+        except BaseException:
+            return 'There was an error'
+    try:
+        job = Job.query.get(id)
+        return render_template('edit.html', job=job)
+    except:
+        return 'Job has not found'
 
 
 # Run Server
