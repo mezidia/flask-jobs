@@ -16,7 +16,7 @@
             <a class="nav-link" href="{{url_for('add')}}">Create new job</a>
           </li> 
         </ul>
-        <form class="d-flex" method="POST">
+        <form class="d-flex" method="POST" action="{{ url_for('index') }}">
           <input class="form-control mr-2" type="search" placeholder="Search job by title" name="search" id="search" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
