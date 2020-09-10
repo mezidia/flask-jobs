@@ -5,36 +5,10 @@
       <option {% if job %}{% if job.type == "Not the full time" %}selected="selected"{% endif %}{% endif %}>Not the full time</option>
     </select>
 </div>
-<div class="mb-3">
-  <label for="url" class="form-label">Url</label>
-  <input type="text" class="form-control" id="url" name="url" value="{% if job %}{{job.url}}{% endif %}" required>
-</div>
-<div class="mb-3">
-    <label for="company" class="form-label">Company</label>
-    <input type="text" class="form-control" id="company" name="company" value="{% if job %}{{job.company}}{% endif %}" required>
-</div>
-<div class="mb-3">
-    <label for="company_url" class="form-label">Company url</label>
-    <input type="text" class="form-control" id="company_url" name="company_url" value="{% if job %}{{job.company_url}}{% endif %}" required>
-</div>
-<div class="mb-3">
-    <label for="location" class="form-label">Location</label>
-    <input type="text" class="form-control" id="location" name="location" value="{% if job %}{{job.location}}{% endif %}" required>
-</div>
-<div class="mb-3">
-    <label for="title" class="form-label">Title</label>
-    <input type="text" class="form-control" id="title" name="title" value="{% if job %}{{job.title}}{% endif %}" required>
-</div>
-<div class="mb-3">
-    <label for="description" class="form-label">Description</label>
-    <input type="text" class="form-control" id="description" name="description" value="{% if job %}{{job.description}}{% endif %}" required>
-</div>
-<div class="mb-3">
-    <label for="how_to_apply" class="form-label">How to apply</label>
-    <input type="text" class="form-control" id="how_to_apply" name="how_to_apply" value="{% if job %}{{job.how_to_apply}}{% endif %}" required>
-</div>
-<div class="mb-3">
-    <label for="company_logo" class="form-label">Company logo</label>
-    <input type="text" class="form-control" id="company_logo" name="company_logo" value="{% if job %}{{job.company_logo}}{% endif %}" required>
-</div>
+{% for field in fields %}
+    <div class="mb-3">
+        <label for="{{field}}" class="form-label">{{field.title()}}</label>
+        <input type="text" class="form-control" id="{{field}}" name="{{field}}" value="{% if job %}{{job[field]}}{% endif %}" required>
+    </div>
+{% endfor %}
 <button type="submit" class="btn btn-primary mb-2">Submit</button>

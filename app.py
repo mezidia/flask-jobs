@@ -17,6 +17,10 @@ db = SQLAlchemy(app)
 # Init ma
 ma = Marshmallow(app)
 
+# Const fields
+fields = ['url', 'company', 'company_url',
+ 'location', 'title', 'description', 'how_to_apply', 'company_logo']
+
 
 # Job Class/Model
 class Job(db.Model):
@@ -127,7 +131,7 @@ def index():
 
 @app.route('/add', methods=['GET'])
 def add():
-    return render_template('add.html')
+    return render_template('add.html', fields=fields)
 
 
 # Update a Job
@@ -163,7 +167,7 @@ def edit(id):
             return 'There was an error'
     try:
         job = Job.query.get(id)
-        return render_template('edit.html', job=job)
+        return render_template('edit.html', job=job, fields=fields)
     except:
         return 'Job has not found'
 
