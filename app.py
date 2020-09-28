@@ -32,8 +32,8 @@ fields = [
 
 # Admins
 users = {
-    os.environ.get('LOGIN'): generate_password_hash(os.environ.get('PASSWORD')),
-}
+    os.environ.get('LOGIN'): generate_password_hash(
+        os.environ.get('PASSWORD')), }
 
 
 # Verification function
@@ -136,9 +136,9 @@ def index():
     if request.method == 'POST':
         title = request.form['search']
         try:
-            job = Job.query.filter(Job.title==title).first()
+            job = Job.query.filter(Job.title == title).first()
             return job_schema.jsonify(job)
-        except:
+        except BaseException:
             return 'Job with this title was not found'
     return render_template('index.html')
 
@@ -174,7 +174,7 @@ def edit(id):
     try:
         job = Job.query.get(id)
         return render_template('edit.html', job=job, fields=fields)
-    except:
+    except BaseException:
         return 'Job has not found'
 
 
