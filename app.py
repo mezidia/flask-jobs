@@ -61,26 +61,16 @@ jobs_schema = JobSchema(many=True)
 # Create a Job
 @app.route('/job', methods=['POST'])
 def add_job():
-    type = request.form['type']
-    url = request.form['url']
-    company = request.form['company']
-    company_url = request.form['company_url']
-    location = request.form['location']
-    title = request.form['title']
-    description = request.form['description']
-    how_to_apply = request.form['how_to_apply']
-    company_logo = request.form['company_logo']
-
     new_job = Job(
-        type=type,
-        url=url,
-        company=company,
-        company_url=company_url,
-        location=location,
-        title=title,
-        description=description,
-        how_to_apply=how_to_apply,
-        company_logo=company_logo)
+        type=request.form['type'],
+        url=request.form['url'],
+        company=request.form['company'],
+        company_url=request.form['company_url'],
+        location=request.form['location'],
+        title=request.form['title'],
+        description=request.form['description'],
+        how_to_apply=request.form['how_to_apply'],
+        company_logo=request.form['company_logo'])
 
     try:
         db.session.add(new_job)
@@ -139,26 +129,16 @@ def add():
 def edit(id):
     if request.method == 'POST':
         job = Job.query.get(id)
-        
-        type = request.form['type']
-        url = request.form['url']
-        company = request.form['company']
-        company_url = request.form['company_url']
-        location = request.form['location']
-        title = request.form['title']
-        description = request.form['description']
-        how_to_apply = request.form['how_to_apply']
-        company_logo = request.form['company_logo']
 
-        job.type = type
-        job.url = url
-        job.company = company
-        job.company_url = company_url
-        job.location = location
-        job.title = title
-        job.description = description
-        job.how_to_apply = how_to_apply
-        job.company_logo = company_logo
+        job.type = request.form['type']
+        job.url = request.form['url']
+        job.company = request.form['company']
+        job.company_url = request.form['company_url']
+        job.location = request.form['location']
+        job.title = request.form['title']
+        job.description = request.form['description']
+        job.how_to_apply = request.form['how_to_apply']
+        job.company_logo = request.form['company_logo']
 
         try:
             db.session.commit()
