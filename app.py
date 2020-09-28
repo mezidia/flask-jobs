@@ -96,7 +96,7 @@ def get_job(id):
 
 
 # Delete Job
-@app.route('/job/<id>', methods=['DELETE'])
+@app.route('/job/<id>/delete', methods=['GET'])
 def delete_job(id):
     job = Job.query.get(id)
     try:
