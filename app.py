@@ -4,10 +4,17 @@ import os
 from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+from flask_httpauth import HTTPBasicAuth
+from werkzeug.security import generate_password_hash, check_password_hash
+
+from dotenv import load_dotenv
+load_dotenv() # Load env vars
 
 # Init app
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
+# Init authentication
+auth = HTTPBasicAuth()
 # Database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
     os.path.join(basedir, 'db.sqlite')
@@ -82,6 +89,7 @@ def add_job():
 
 # Get All Jobs
 @app.route('/job', methods=['GET'])
+@auth.login_required
 def get_jobs():
     all_jobs = Job.query.all()
     result = jobs_schema.dump(all_jobs)
@@ -97,6 +105,7 @@ def get_job(id):
 
 # Delete Job
 @app.route('/job/<id>/delete', methods=['GET'])
+@auth.login_required
 def delete_job(id):
     job = Job.query.get(id)
     try:
@@ -120,12 +129,14 @@ def index():
 
 
 @app.route('/add', methods=['GET'])
+@auth.login_required
 def add():
     return render_template('add.html', fields=fields)
 
 
 # Update a Job
 @app.route('/edit/<int:id>', methods=['GET', 'POST'])
+@auth.login_required
 def edit(id):
     if request.method == 'POST':
         job = Job.query.get(id)
