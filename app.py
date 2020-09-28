@@ -8,7 +8,7 @@ from flask_httpauth import HTTPBasicAuth
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from dotenv import load_dotenv
-load_dotenv() # Load env vars
+load_dotenv()  # Load env vars
 
 # Init app
 app = Flask(__name__)
@@ -25,8 +25,10 @@ db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
 # Const fields
-fields = ['url', 'company', 'company_url',
- 'location', 'title', 'description', 'how_to_apply', 'company_logo']
+fields = [
+    'url', 'company', 'company_url',
+    'location', 'title', 'description', 'how_to_apply', 'company_logo'
+]
 
 # Admins
 users = {
