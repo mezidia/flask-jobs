@@ -33,6 +33,7 @@ users = {
     os.environ.get('LOGIN'): generate_password_hash(os.environ.get('PASSWORD')),
 }
 
+# Verification function
 @auth.verify_password
 def verify_password(username, password):
     if username in users and \
