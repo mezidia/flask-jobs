@@ -1,0 +1,14 @@
+<div class="mb-3">
+    <label for="type" class="form-label">Type of job</label>
+    <select id="type" class="form-select" name="type">
+      <option {% if job %}{% if job.type == "Full time" %}selected="selected"{% endif %}{% endif %}>Full time</option>
+      <option {% if job %}{% if job.type == "Not the full time" %}selected="selected"{% endif %}{% endif %}>Not the full time</option>
+    </select>
+</div>
+{% for field in fields %}
+    <div class="mb-3">
+        <label for="{{field}}" class="form-label">{{field.title()}}</label>
+        <input type="text" class="form-control" id="{{field}}" name="{{field}}" value="{% if job %}{{job[field]}}{% endif %}" required>
+    </div>
+{% endfor %}
+<button type="submit" class="btn btn-primary mb-2">Submit</button>
