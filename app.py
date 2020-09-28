@@ -28,6 +28,16 @@ ma = Marshmallow(app)
 fields = ['url', 'company', 'company_url',
  'location', 'title', 'description', 'how_to_apply', 'company_logo']
 
+# Admins
+users = {
+    os.environ.get('LOGIN'): generate_password_hash(os.environ.get('PASSWORD')),
+}
+
+@auth.verify_password
+def verify_password(username, password):
+    if username in users and \
+            check_password_hash(users.get(username), password):
+        return username
 
 # Job Class/Model
 class Job(db.Model):
