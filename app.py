@@ -139,7 +139,7 @@ def add():
 def edit(id):
     if request.method == 'POST':
         job = Job.query.get(id)
-
+        
         type = request.form['type']
         url = request.form['url']
         company = request.form['company']
