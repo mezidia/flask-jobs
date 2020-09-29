@@ -104,7 +104,6 @@ def add_job():
 
 # Get All Jobs
 @app.route('/job', methods=['GET'])
-@auth.login_required
 def get_jobs():
     all_jobs = Job.query.all()
     result = jobs_schema.dump(all_jobs)
