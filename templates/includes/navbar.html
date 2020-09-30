@@ -2,7 +2,7 @@
     <div class="container-fluid">
     <a class="navbar-brand" href="{{url_for('index')}}">
         <img src="{{ url_for('static', filename='img/logo.png') }}" width="40" height="40" class="d-inline-block align-top" alt="" loading="lazy">
-        Bootstrap
+        Mezidia
     </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -14,6 +14,9 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{url_for('add')}}">Create new job</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://mezidia.github.io/mezidia-jobs/" target="_blank">Mezidia jobs</a>
           </li> 
         </ul>
         <form class="d-flex" method="POST" action="{{ url_for('index') }}">
