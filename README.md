@@ -42,6 +42,22 @@ I have direct [continuous deployment](https://en.wikipedia.org/wiki/Continuous_d
 
 ## Screenshots
 
+- Main page
+
+![Screenshot 1](https://raw.githubusercontent.com/mezgoodle/images/master/flask-jobs.png)
+
+- JSON response
+
+![Screenshot 1](https://raw.githubusercontent.com/mezgoodle/images/master/flask-jobs1.png)
+
+- Add job page
+
+![Screenshot 1](https://raw.githubusercontent.com/mezgoodle/images/master/flask-jobs2.png)
+
+- Edit job page
+
+![Screenshot 1](https://raw.githubusercontent.com/mezgoodle/images/master/flask-jobs3.png)
+
 ## Tech/framework used
 
 **Built with**
