@@ -102,7 +102,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 ## Credits
 
-Links to video which inspired me to build this project: 
+Links to video which inspired me to build this project:
 
 - [REST API With Flask & SQL Alchemy](https://www.youtube.com/watch?v=PTZiDnuC86g)
 
